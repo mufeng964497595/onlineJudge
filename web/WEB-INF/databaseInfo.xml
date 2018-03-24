@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<!--保存数据库的相关信息，便于移植-->
+<xml>
+    <driverClassName value="com.mysql.jdbc.Driver">
+    </driverClassName>
+    <dbUrl value="jdbc:mysql://localhost:3306/onlineJudge?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=true">
+    </dbUrl>
+    <dbUser value="oj">
+    </dbUser>
+    <dbPasswd value="onlineJudge">
+    </dbPasswd>
+</xml>

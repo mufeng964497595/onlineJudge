@@ -1,0 +1,41 @@
+@CHARSET "UTF-8";
+body{
+	text-align: center;
+	background: url(".././picture/background.png");
+}
+
+div.outer{
+	text-align: center;
+	margin: 0 auto;
+	width: 100%;
+	min-height: 300px;
+	_height: 300px;
+	margin-top: 30px;
+	padding-bottom: 10px;
+	border: 1px solid;
+	border-color: rgb(238, 238, 238);
+	border-radius: 10px;
+	background: rgba(255,255,255,0.5);
+}
+th{
+	margin: 0 auto;
+	text-align: center;
+	border: 1px solid #DDDDDD;
+}
+th.center{
+	margin-bottom: 10px;
+}
+td{
+	border: 1px solid #DDDDDD;
+}
+input.search{
+	width: 100%;
+	color: gray;
+}
+select{
+	text-align: center;
+	color: gray;
+}
+option{
+	color: gray;
+}

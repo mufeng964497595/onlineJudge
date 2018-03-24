@@ -1,0 +1,35 @@
+@CHARSET "UTF-8";
+span.attempt{
+	color: white;padding: 5px;border-radius: 5px;
+	background-color: rgb(240, 173, 78);
+}
+span.accept{
+	color: white;padding: 5px;border-radius: 5px;
+	background-color: rgb(92, 184, 92);
+}
+span.grey{
+	color: white;padding: 5px;border-radius: 5px;
+	background-color: rgb(102, 103, 124);
+}
+th.accept{
+	background-color: rgb(169, 245, 175);
+}
+th.attempt{
+	background-color: rgb(255, 221, 221);
+}
+td.attempt{
+	background-color: rgb(255, 221, 221);
+}
+td.accept{
+	background-color: rgb(169, 245, 175);
+}
+td.firstBlood{
+	background-color: rgb(0, 136, 0);
+	color: white;
+}
+td.timeOver{
+	background-color: rgb(170, 207, 170);
+}
+td.me{
+	background-color: rgb(204, 221, 255);
+}
