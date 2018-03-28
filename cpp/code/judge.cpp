@@ -61,7 +61,7 @@ char* dbname = nullptr;
 const char* MYSQL_ERROR_LOG = "mysqlError.log";
 const char* SYSTEM_ERROR_LOG = "systemError.log";
 
-bool allowSysCall[510];
+bool allowSysCall[512];
 
 int compile(int lang, const char* ceFile, const char* runId);
 void updateCompileErrorInfo(const char* runId, const char* ceFile);
