@@ -22,7 +22,7 @@
 		<script src="js/bootstrap-datetimepicker.js"></script>
 		<script src="js/trumbowyg.js"></script>
 		<script src="js/trumbowyg.base64.js"></script>
-		<title>SZU Online Judge</title>
+		<title>SZUCPC Online Judge</title>
 		
 		<%
 			String account = (String)session.getAttribute("account");

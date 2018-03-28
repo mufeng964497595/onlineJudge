@@ -19,7 +19,7 @@
 		<script src="js/jquery-3.2.1.min.js"></script>
 		<script src="js/control.js"></script>
 		<script src="js/editTestData.js"></script>
-		<title>SZU Online Judge</title>
+		<title>SZUCPC Online Judge</title>
 		<%
 			String isAdmin = (String)session.getAttribute("isAdmin");
 			String pid = request.getParameter("pid");

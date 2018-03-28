@@ -45,4 +45,4 @@
 </nav>
 
 <marquee id="broadcast" class="toprow" style="margin-top:10px;background: rgb(238, 238, 238);" scrollamount="1" scrolldelay="50" 
-				onmouseover="this.stop()" onmouseout="this.start()">Welcome to SZU Online Judge</marquee>
+				onmouseover="this.stop()" onmouseout="this.start()">Welcome to SZUCPC Online Judge</marquee>

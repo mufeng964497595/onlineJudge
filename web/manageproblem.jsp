@@ -63,7 +63,7 @@
 				}
 			}
 		</script>
-		<title>SZU Online Judge</title>
+		<title>SZUCPC Online Judge</title>
 		<%
 			String isAdmin = (String)session.getAttribute("isAdmin");
 			if( isAdmin==null || !isAdmin.equals("true") ){
@@ -91,11 +91,13 @@
 			}
 			
 			String _pageNow = request.getParameter("pageNow");
-			long pageNow = 1;
+			int pageNow;
 			try {
-				pageNow = Long.parseLong(_pageNow);
+				pageNow = Integer.parseInt(_pageNow);
 				if (pageNow < 1) {
 					pageNow = 1;
+				} else if (pageNow > GetInfoFromDatabaseDao.maxPage) {
+					pageNow = GetInfoFromDatabaseDao.maxPage;
 				}
 			} catch (NumberFormatException e) {
 				pageNow = 1;

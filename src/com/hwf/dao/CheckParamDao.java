@@ -15,7 +15,7 @@ import org.xml.sax.SAXException;
 public class CheckParamDao {
 
 	public static boolean checkCid(String cid) throws ParserConfigurationException {
-		if (cid == null)
+		if (cid == null || "".equals(cid))
 			return false;
 
 		boolean result = false;

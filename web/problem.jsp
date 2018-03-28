@@ -24,7 +24,7 @@
 				window.location.href = "./submitpage.jsp?cid="+cid+"&pno="+pno+"&showType=<%=showType%>";
 			}
 		</script>
-		<title>SZU Online Judge</title>
+		<title>SZUCPC Online Judge</title>
 		
 		<%
 			String username = (String)session.getAttribute("account");

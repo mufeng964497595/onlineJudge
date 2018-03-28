@@ -18,7 +18,7 @@
 		<script src="js/updateInfo.js"></script>
 		<script src="js/jquery-2.1.1.min.js"></script>
 		<script src="js/verify.min.js"></script>
-		<title>SZU Online Judge</title>
+		<title>SZUCPC Online Judge</title>
 		
 		<%
 			String username = (String)session.getAttribute("account");

@@ -19,7 +19,7 @@
 		<script src="js/jquery-2.1.1.min.js"></script>
 		<script src="js/trumbowyg.js"></script>
 		<script src="js/trumbowyg.base64.js"></script>
-		<title>SZU Online Judge</title>
+		<title>SZUCPC Online Judge</title>
 		<%
 			final String CHECK_SESSION = "checkSession";
 			

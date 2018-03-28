@@ -40,7 +40,7 @@
 					pageError.innerText = "当前已是第一页";
 				}else{
 					pageNow--;
-					window.location.href = "<%=url%>pageNow="+pageNow;
+					window.location.href = "<%=url%>&pageNow="+pageNow;
 				}
 			}
 			
@@ -58,7 +58,7 @@
 					pageError.innerText = "当前已是最后一页";
 				}else{
 					pageNow++;
-					window.location.href = "<%=url%>pageNow="+pageNow;
+					window.location.href = "<%=url%>&pageNow="+pageNow;
 				}
 			}
 		</script>
@@ -70,7 +70,7 @@
 		<script src="js/control.js"></script>
 		<script src="js/contest.js"></script>
 		
-		<title>SZU Online Judge</title>
+		<title>SZUCPC Online Judge</title>
 		
 		<%
 			String username = (String)session.getAttribute("account");
@@ -88,8 +88,8 @@
 			boolean isSelectContest = CheckParamDao.checkCid(cid);
 			
 			String showType = request.getParameter("showType");
-			if( showType==null || !showType.equals("0") )
-				showType = "1";
+			if( showType==null || !showType.equals("1") )
+				showType = "0";
 			boolean isShowContest = showType.equals("1");
 		%>
 		
@@ -105,9 +105,9 @@
 				<%
 					if( !isSelectContest ){
 						String _pageNow = request.getParameter("pageNow");
-						long pageNow;
+						int pageNow;
 						try {
-							pageNow = Long.parseLong(_pageNow);
+							pageNow = Integer.parseInt(_pageNow);
 							if (pageNow < 1) {
 								pageNow = 1;
 							}
@@ -116,13 +116,15 @@
 						}
 					
 						ArrayList<ContestListBean> contestList;
-						long totalPage;
+						int totalPage;
 						if( search!=null && !search.equals("") ){
-							contestList = GetInfoFromDatabaseDao.searchContestListWithTitle(search,pageNow);
 							totalPage = GetInfoFromDatabaseDao.getSearchContestListTotalPage(search);
+							if (pageNow > totalPage) pageNow = totalPage;
+							contestList = GetInfoFromDatabaseDao.searchContestListWithTitle(search,pageNow);
 						}else{
-							contestList = GetInfoFromDatabaseDao.getContestList(pageNow);
 							totalPage = GetInfoFromDatabaseDao.getContestListTotalPage();
+							if (pageNow > totalPage) pageNow = totalPage;
+							contestList = GetInfoFromDatabaseDao.getContestList(pageNow);
 						}
 				%>
 			
@@ -164,7 +166,7 @@
 						<tr class="<%=className%>">
 							<td><%=bean.getCid()%></td>
 							<td>
-								<a href="./contest.jsp?cid=<%=bean.getCid()%>&showType=1"><%=bean.getTitle()%></a>
+								<a href="./contest.jsp?cid=<%=bean.getCid()%>&showType=0"><%=bean.getTitle()%></a>
 							</td>
 							<td>
 								<%
@@ -254,7 +256,7 @@
 					}
 					
 					if( isStarted ){					
-					ArrayList<ContestContentBean> contestContent = GetInfoFromDatabaseDao.getContestContent(cid, username,isShowContest);
+						ArrayList<ContestContentBean> contestContent = GetInfoFromDatabaseDao.getContestContent(cid, username,isShowContest);
 				%>
 				
 					<jsp:include page="includeJSP/problemsetTitle.jsp"></jsp:include>
@@ -290,9 +292,9 @@
 									out.print(bean.getAccept()+" / "+bean.getSubmit());
 								}
 							%></td>
-							<td><a href="problem.jspid=<%=cid%>&pno=<%=bean.getPno()%>&showType=<%=showType%>"><%=bean.getPno()%></a></td>
+							<td><a href="problem.jsp?cid=<%=cid%>&pno=<%=bean.getPno()%>&showType=<%=showType%>"><%=bean.getPno()%></a></td>
 							<td><%=bean.getOrigin()%></td>	
-							<td><a href="problem.jspid=<%=cid%>&pno=<%=bean.getPno()%>&showType=<%=showType%>"><%=bean.getTitle()%></a></td>
+							<td><a href="problem.jsp?cid=<%=cid%>&pno=<%=bean.getPno()%>&showType=<%=showType%>"><%=bean.getTitle()%></a></td>
 						</tr>
 						
 						<%}%>

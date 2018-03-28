@@ -14,6 +14,8 @@ function submitCode(){
 	
 	if( code=="" || code.length<50 ){
 		hintLabel.html("Please enter your code at least 50 characters."); refleshVerify(); button.disabled = false; return;
+	} else if ( code.length>65535 ) {
+		hintLabel.html("The length of your code is out of limit."); refleshVerify(); button.disabled = false; return;
 	}
 	if( verifyStatus!="1" ){
 		hintLabel.html("Please complite the verify."); refleshVerify(); button.disabled = false; return;
@@ -30,9 +32,9 @@ function submitCode(){
 		xmlHttp.onreadystatechange = function(){
 			if( xmlHttp.readyState==4 ){
 				if( xmlHttp.responseText=="success" ){
-					window.location.href = "./status.jsp?cid="+cid+"&username="+username+"&showType="+showType;
+					window.location.href = "./status.jsp?cid="+cid+"&username="+username+"&showType=0";
 				}else if( xmlHttp.responseText=="limit" ){
-					hintLabel.text("You can submit only once in 30 seconds");	
+					hintLabel.text("You can submit only once in 30 seconds");
 				}else{
 					//hintLabel.html(xmlHttp.responseText);
 					hintLabel.text("Submit error,please try again.");
@@ -45,9 +47,10 @@ function submitCode(){
 		xmlHttp.send("cid="+cid+"&pno="+pno+"&username="+username+"&language="+language+"&share="+share+"&code="+code+"&checkCode="+checkCode);
 	}catch( e ){
 		hintLabel.HTML(e);
+        refleshVerify();
 		button.disabled = false;
 	}
-	
+    refleshVerify();
 	button.disabled = false;
 }
 

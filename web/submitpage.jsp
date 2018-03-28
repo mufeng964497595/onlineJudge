@@ -19,7 +19,7 @@
 		<script src="js/jquery-3.2.1.min.js"></script>
 		<script src="js/verify.min.js"></script>
 		<script src="js/submitCode.js"></script>
-		<title>SZU Online Judge</title>
+		<title>SZUCPC Online Judge</title>
 		
 		<%
 			String username = (String)session.getAttribute("account");

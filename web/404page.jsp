@@ -5,7 +5,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" href="css/content.css">
-		<title>SZU Online Judge</title>
+		<title>SZUCPC Online Judge</title>
 	</head>
 	<body>
 		<div style="width: 50%;margin: 0 auto;margin-top: 30px;">

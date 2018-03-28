@@ -6,7 +6,7 @@ public class StatusBean {
 	private int cid;
 	private String pno;
 	private String result;
-	private double time, mem;
+	private int time, mem;
 	private int length;
 	private String language;
 	private String shared;
@@ -53,19 +53,19 @@ public class StatusBean {
 		this.result = result;
 	}
 
-	public double getTime() {
+	public int getTime() {
 		return time;
 	}
 
-	public void setTime(double time) {
+	public void setTime(int time) {
 		this.time = time;
 	}
 
-	public double getMem() {
+	public int getMem() {
 		return mem;
 	}
 
-	public void setMem(double mem) {
+	public void setMem(int mem) {
 		this.mem = mem;
 	}
 

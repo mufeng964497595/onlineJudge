@@ -17,7 +17,7 @@
 		<script src="js/register.js"></script>
 		<script src="js/jquery-2.1.1.min.js"></script>
 		<script src="js/verify.min.js"></script>
-		<title>SZU Online Judge</title>
+		<title>SZUCPC Online Judge</title>
 		
 		<%
 			final String CHECK_SESSION = "checkSession";

@@ -26,18 +26,18 @@ import com.hwf.bean.UserContestRankBean;
  * 工具类，用以获取数据库的信息
  */
 public class GetInfoFromDatabaseDao {
-	private static int pageRow = 50;/*每页最多50条数据*/
+	private static int pageRow = 50;// 每页最多50条数据
+	public static final int maxPage = 50;// 最多显示50页
 
-	public static ArrayList<ContestListBean> getContestList(long pageNow) {
+	public static ArrayList<ContestListBean> getContestList(int pageNow) {
 		ArrayList<ContestListBean> contestList = new ArrayList<>();
 
 		ConnectionDao conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		long top = (pageNow - 1) * pageNow;
-		if (top < 0)
-			top = 0;
+		int top = (pageNow - 1) * pageNow;
+		if (top < 0) top = 0;
 
 		try {
 			conn = new ConnectionDao();
@@ -77,8 +77,8 @@ public class GetInfoFromDatabaseDao {
 		return contestList;
 	}
 
-	public static long getContestListTotalPage() {
-		long num = 1;
+	public static int getContestListTotalPage() {
+		int num = 1;
 
 		ConnectionDao conn = null;
 		PreparedStatement ps = null;
@@ -92,7 +92,7 @@ public class GetInfoFromDatabaseDao {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				num = rs.getLong(1);
+				num = rs.getInt(1);
 
 				if (num % pageRow == 0) {
 					num /= pageRow;
@@ -117,7 +117,7 @@ public class GetInfoFromDatabaseDao {
 			}
 		}
 
-		return num;
+		return num > maxPage ? maxPage : num;
 	}
 
 	public static ArrayList<ContestListBean> searchContestListWithTitle(String search, long pageNow) {
@@ -174,8 +174,8 @@ public class GetInfoFromDatabaseDao {
 		return contestList;
 	}
 
-	public static long getSearchContestListTotalPage(String search) {
-		long num = 1;
+	public static int getSearchContestListTotalPage(String search) {
+		int num = 1;
 
 		if (search == null)
 			search = "";
@@ -194,7 +194,7 @@ public class GetInfoFromDatabaseDao {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				num = rs.getLong(1);
+				num = rs.getInt(1);
 
 				if (num % pageRow == 0) {
 					num /= pageRow;
@@ -220,7 +220,7 @@ public class GetInfoFromDatabaseDao {
 			}
 		}
 
-		return num;
+		return num > maxPage ? maxPage : num;
 	}
 
 	public static ArrayList<ContestContentBean> getContestContent(String cid, String username, boolean isShowContest) {
@@ -365,7 +365,6 @@ public class GetInfoFromDatabaseDao {
 			if (rs.next()) {
 				problemBean = new ProblemBean();
 
-				// Contest InputDesc OutputDesc HintΪ���ı��༭�����ɵģ�����Ҫת��ʽ
 				problemBean.setPid(rs.getInt(1));
 				problemBean.setTitle(replaceString(rs.getString(2)));
 				problemBean.setTimeLimit(rs.getDouble(3));
@@ -438,7 +437,7 @@ public class GetInfoFromDatabaseDao {
 	}
 
 	public static ArrayList<StatusBean> getStatus(String cid, String pno, String username, String result, String language, boolean isCidCorrect, boolean isShowContest,
-			long pageNow) {
+			int pageNow) {
 		ArrayList<StatusBean> statusList = new ArrayList<>();
 
 		if (pno == null || pno.equals(""))
@@ -452,7 +451,7 @@ public class GetInfoFromDatabaseDao {
 		if (language == null || language.equals("") || language.equals("0"))
 			language = "%";
 
-		long top = (pageNow - 1) * pageRow;
+		int top = (pageNow - 1) * pageRow;
 
 		ConnectionDao conn = null;
 		PreparedStatement ps = null;
@@ -468,7 +467,7 @@ public class GetInfoFromDatabaseDao {
 				ps.setString(1, username);
 				ps.setString(2, result);
 				ps.setString(3, language);
-				ps.setLong(4, top);
+				ps.setInt(4, top);
 				rs = ps.executeQuery();
 			} else {
 				String sql;
@@ -482,19 +481,19 @@ public class GetInfoFromDatabaseDao {
 				ps.setString(3, username);
 				ps.setString(4, result);
 				ps.setString(5, language);
-				ps.setLong(6, top);
+				ps.setInt(6, top);
 				rs = ps.executeQuery();
 			}
 
 			while (rs.next()) {
 				StatusBean bean = new StatusBean();
-				bean.setRunId(rs.getLong(1));
+				bean.setRunId(rs.getInt(1));
 				bean.setUsername(rs.getString(2));
 				bean.setCid(rs.getInt(3));
 				bean.setPno(rs.getString(4));
 				bean.setResult(rs.getString(5));
-				bean.setTime(rs.getDouble(6));
-				bean.setMem(rs.getDouble(7));
+				bean.setTime(rs.getInt(6));
+				bean.setMem(rs.getInt(7));
 				bean.setLength(rs.getInt(8));
 				bean.setLanguage(rs.getString(9));
 				bean.setShared(rs.getString(10));
@@ -522,7 +521,7 @@ public class GetInfoFromDatabaseDao {
 		return statusList;
 	}
 
-	public static long getStatusTotalPage(String cid, String pno, String username, String result, String language, boolean isCidCorrect, boolean isShowContest) {
+	public static int getStatusTotalPage(String cid, String pno, String username, String result, String language, boolean isCidCorrect, boolean isShowContest) {
 		if (pno == null || pno.equals(""))
 			pno = "%";
 		if (username == null || username.equals(""))
@@ -538,7 +537,7 @@ public class GetInfoFromDatabaseDao {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		long num = 1;
+		int num = 1;
 
 		try {
 			conn = new ConnectionDao();
@@ -568,7 +567,7 @@ public class GetInfoFromDatabaseDao {
 			}
 
 			if (rs.next()) {
-				num = rs.getLong(1);
+				num = rs.getInt(1);
 
 				if (num % pageRow == 0) {
 					num /= pageRow;
@@ -594,13 +593,13 @@ public class GetInfoFromDatabaseDao {
 			}
 		}
 
-		return num;
+		return num > maxPage ? maxPage : num;
 	}
 
-	public static ArrayList<TotalRankBean> getTotalRankList(long pageNow) {
+	public static ArrayList<TotalRankBean> getTotalRankList(int pageNow) {
 		ArrayList<TotalRankBean> totalRankList = new ArrayList<>();
 
-		long top = (pageNow - 1) * pageRow;
+		int top = (pageNow - 1) * pageRow;
 		if (top < 0)
 			top = 0;
 
@@ -613,7 +612,7 @@ public class GetInfoFromDatabaseDao {
 			conn.connection();
 			String sql = "{call getTotalRankList(?)}";
 			ps = conn.prepareStatement(sql);
-			ps.setLong(1, top);
+			ps.setInt(1, top);
 			rs = ps.executeQuery();
 
 			for (int i = 1; rs.next(); ++i) {
@@ -646,8 +645,8 @@ public class GetInfoFromDatabaseDao {
 		return totalRankList;
 	}
 
-	public static long getRankListTotalPage() {
-		long num = 1;
+	public static int getRankListTotalPage() {
+		int num = 1;
 
 		ConnectionDao conn = null;
 		PreparedStatement ps = null;
@@ -661,7 +660,7 @@ public class GetInfoFromDatabaseDao {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				num = rs.getLong(1);
+				num = rs.getInt(1);
 
 				if (num % pageRow == 0) {
 					num /= pageRow;
@@ -687,7 +686,7 @@ public class GetInfoFromDatabaseDao {
 			}
 		}
 
-		return num;
+		return num > maxPage ? maxPage : num;
 	}
 
 	public static ArrayList<UserContestRankBean> getUserContestRank(String cid, boolean isShowContest) {
@@ -881,10 +880,7 @@ public class GetInfoFromDatabaseDao {
 				}
 			}
 
-		} catch (ClassNotFoundException |
-
-				SQLException | ParserConfigurationException | SAXException | IOException e) {
-			// TODO Auto-generated catch block
+		} catch (ClassNotFoundException | SQLException | ParserConfigurationException | SAXException | IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -895,7 +891,6 @@ public class GetInfoFromDatabaseDao {
 				if (conn != null)
 					conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -943,7 +938,7 @@ public class GetInfoFromDatabaseDao {
 		return contest;
 	}
 
-	public static ArrayList<ProblemBean> getPidAndTitle(String search, long pageNow) {
+	public static ArrayList<ProblemBean> getPidAndTitle(String search, int pageNow) {
 		ArrayList<ProblemBean> list = new ArrayList<>();
 
 		if (search == null || search.equals(""))
@@ -951,7 +946,7 @@ public class GetInfoFromDatabaseDao {
 		else
 			search = "%" + search + "%";
 
-		long top = (pageNow - 1) * pageRow;
+		int top = (pageNow - 1) * pageRow;
 		if (top < 0)
 			top = 0;
 
@@ -965,7 +960,7 @@ public class GetInfoFromDatabaseDao {
 			String sql = "{call getPidAndTitle(?,?)}";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, search);
-			ps.setLong(2, top);
+			ps.setInt(2, top);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				ProblemBean bean = new ProblemBean();
@@ -994,8 +989,8 @@ public class GetInfoFromDatabaseDao {
 		return list;
 	}
 
-	public static long getProblemTotalPage(String search) {
-		long num = 1;
+	public static int getProblemTotalPage(String search) {
+		int num = 1;
 
 		if (search == null || search.equals(""))
 			search = "%";
@@ -1015,7 +1010,7 @@ public class GetInfoFromDatabaseDao {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				num = rs.getLong(1);
+				num = rs.getInt(1);
 
 				if (num % pageRow == 0) {
 					num /= pageRow;
@@ -1026,7 +1021,6 @@ public class GetInfoFromDatabaseDao {
 				}
 			}
 		} catch (ClassNotFoundException | SQLException | ParserConfigurationException | SAXException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
@@ -1037,12 +1031,11 @@ public class GetInfoFromDatabaseDao {
 				if (conn != null)
 					conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 
-		return num;
+		return num > maxPage ? maxPage : num;
 	}
 
 	public static ProblemBean getProblem(String pid) {

@@ -1,7 +1,6 @@
 package com.hwf.servlet;
 
 import com.hwf.dao.ConnectionDao;
-import com.hwf.deal.JudgeSubmitCode;
 import org.xml.sax.SAXException;
 
 import javax.servlet.ServletContext;
@@ -14,7 +13,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -69,7 +67,6 @@ public class SubmitCodeServlet extends HttpServlet {
 		String result = "";
 		ConnectionDao conn = null;
 		PreparedStatement ps = null;
-		ResultSet rs;
 
 		/*比较两次提交的时间间隔*/
 		Date now = new Date();
@@ -94,36 +91,18 @@ public class SubmitCodeServlet extends HttpServlet {
 				ps.setString(1, username);
 				ps.setString(2, cid);
 				ps.setString(3, pno);
-				ps.setString(4, "7");
-				ps.setDouble(5, 0.0);
-				ps.setDouble(6, 0.0);
+				ps.setString(4, "9");
+				ps.setInt(5, 0);
+				ps.setInt(6, 0);
 				ps.setInt(7, code.length());
 				ps.setString(8, language);
 				ps.setString(9, code);
 				ps.setString(10, share);
 
-				rs = ps.executeQuery();
-				long runId = 0;
-				if (rs.next())
-					runId = rs.getLong(1);
-
+				ps.execute();
 				session.setAttribute("submitDate", now);
 
 				result = "success";
-
-				//TODO 要改，按队列来
-				final JudgeSubmitCode testSubmitCode = new JudgeSubmitCode(cid, pno, code, runId);
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						switch (language) {
-							case "1": testSubmitCode.testCCode();  break;
-							case "2": testSubmitCode.testCppCode(); break;
-							default: testSubmitCode.testJavaCode(); break;
-						}
-					}
-				}).start();
-
 			} catch (ClassNotFoundException | SQLException | ParserConfigurationException | SAXException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

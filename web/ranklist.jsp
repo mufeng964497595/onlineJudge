@@ -39,13 +39,13 @@
 				var string = _pageNow.value;
 				var pageNow = new Number(string);
 				
-				if( pageNow==1 ){
+				if( pageNow===1 ){
 					var pageError = document.getElementById("pageError");
 					
 					pageError.innerText = "当前已是第一页";
 				}else{
 					pageNow--;
-					window.location.href = "<%=url%>pageNow="+pageNow;
+					window.location.href = "<%=url%>&pageNow="+pageNow;
 				}
 			}
 			
@@ -63,11 +63,11 @@
 					pageError.innerText = "当前已是最后一页";
 				}else{
 					pageNow++;
-					window.location.href = "<%=url%>pageNow="+pageNow;
+					window.location.href = "<%=url%>&pageNow="+pageNow;
 				}
 			}
 		</script>
-		<title>SZU Online Judge</title>
+		<title>SZUCPC Online Judge</title>
 		
 		<%
 			String username = (String)session.getAttribute("account");
@@ -85,18 +85,19 @@
 			<div class="outer">
 				<% if( !isCidCorrect ){
 					String _pageNow = request.getParameter("pageNow");
-					long pageNow = 1;
+					int pageNow = 1;
 					try {
-						pageNow = Long.parseLong(_pageNow);
+						pageNow = Integer.parseInt(_pageNow);
 						if (pageNow < 1) {
 							pageNow = 1;
 						}
 					} catch (NumberFormatException e) {
 						pageNow = 1;
 					}
-				
+
+					int totalPage = GetInfoFromDatabaseDao.getRankListTotalPage();
+					if (pageNow > totalPage) pageNow = totalPage;
 					ArrayList<TotalRankBean> totalRankList = GetInfoFromDatabaseDao.getTotalRankList(pageNow);
-					long totalPage = GetInfoFromDatabaseDao.getRankListTotalPage();
 				%>
 				<table class="table table-striped" border="" bordercolor="#DDDDDD" style="margin: 0 auto; width: 95%; text-align: center;margin-top: 10px;background: rgb(238, 238, 238);"> 
 					<thead>
@@ -152,7 +153,7 @@
 					int pnum = contestList.size();
 				%>
 				<jsp:include page="includeJSP/problemsetTitle.jsp"></jsp:include>
-				<table class="table table-striped" border="" bordercolor="#DDDDDD" style="margin: left; width: auto; text-align: center;margin-top: -20px;background: rgb(238, 238, 238);">
+				<table class="table table-striped" border="" bordercolor="#DDDDDD" style="align-content: left; width: auto; text-align: center;margin-top: -20px;background: rgb(238, 238, 238);">
 					<thead>
 						<tr class="toprow" align="center">
 							<th style="width: 80px;">Rank<br><br></th>
@@ -191,7 +192,8 @@
 							<td <%=tdClass%>><%=bean.getSolve()%></td>
 							<td <%=tdClass%>><%=bean.getPenalty()%></td>
 							<% 	ArrayList<UserContestProblemInfoBean> problemInfo = bean.getProblemInfo();
-								int num = problemInfo.size();
+								int num = 0;
+								if( problemInfo!=null ) num = problemInfo.size();
 								for( int j=0,k=0;j<pnum;++j ){
 									if( k>=num ){
 										out.print("<td></td>");

@@ -17,7 +17,7 @@
 		<script type="text/javascript">
 			var xmlHttp = false;
 		</script> 
-		<title>SZU Online Judge</title>
+		<title>SZUCPC Online Judge</title>
 		
 		<%
 			final String CHECK_SESSION = "checkSession";
