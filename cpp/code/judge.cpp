@@ -416,7 +416,7 @@ void run(int lang, int timeLimit, int memLimit, int& usedTime, const char* dataI
 			char javaXms[32];
 			sprintf(javaXms, "-Xmx%dM", memLimit);
 			execl("/usr/bin/java", "/usr/bin/java", javaXms, "-Djava.security.manager"
-				, "-Djava.security.policy=./java.policy", "Main", nullptr);
+				, "-Djava.security.policy=/usr/lib/jvm/java-8-oracle/jre/lib/security/my.policy", "Main", nullptr);
 			break;
 	}
 }
