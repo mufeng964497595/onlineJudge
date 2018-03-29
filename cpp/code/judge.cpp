@@ -266,6 +266,11 @@ void judge(char* runId, char* cid, char* pno, char* lang) {
 		saveErrorLog(e);
 		updateSubmitStatus(runId, OJ_SE, 0, 0);
 	}
+	
+	if (atoi(lang) == 3) {// java
+		timeLimit <<= 1;
+		memLimit <<= 1;
+	}
 
 	/* start judge */
 	try {
